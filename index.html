@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steins Stoltheder — Bestillingsseddel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16202a;          /* slate desk / house of Stein */
+    --ink-2:#1f2c39;        /* raised slate */
+    --ink-3:#28384a;
+    --paper:#e5dcc3;        /* aged bone manifest (cold, not cream) */
+    --paper-2:#efe7d2;      /* lighter row paper */
+    --paper-line:#cabd9c;   /* hairline on paper */
+    --text:#2a2016;         /* brown-black ink */
+    --muted:#6d6046;        /* muted ink */
+    --iron:#8b96a2;         /* steel text on slate */
+    --iron-dim:#5d6875;
+    --wax:#8a2c22;          /* oxblood wax / seal */
+    --wax-deep:#6e2019;
+    --brass:#a9863f;        /* jeweler's brass accent */
+    --brass-lo:#8a6d31;
+    --good:#3f6b4a;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text);
+    font-family:'Spectral',Georgia,serif;
+    font-weight:400;
+    line-height:1.5;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    background:var(--ink);
+    color:var(--paper);
+    border-bottom:3px solid var(--brass-lo);
+    padding:22px 20px 18px;
+    text-align:center;
+    position:relative;
+  }
+  .masthead::after{
+    content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;
+    background:repeating-linear-gradient(90deg,var(--brass) 0 14px,transparent 14px 22px);
+    opacity:.5;
+  }
+  .mark{margin:0 auto 8px;width:34px;height:34px;display:block;}
+  .mark path,.mark line{stroke:var(--brass);}
+  .shopname{
+    font-family:'Cinzel',serif;font-weight:700;
+    font-size:clamp(24px,5.5vw,40px);
+    letter-spacing:.14em;margin:0;color:#efe7d2;
+    text-shadow:0 1px 0 #000;
+  }
+  .tagline{
+    font-family:'Cinzel',serif;font-weight:500;
+    letter-spacing:.32em;font-size:11px;text-transform:uppercase;
+    color:var(--brass);margin:7px 0 0;
+  }
+  .subline{
+    font-style:italic;color:var(--iron);font-size:14px;margin:9px 0 0;
+  }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{
+    max-width:1120px;margin:0 auto;padding:16px 20px 4px;
+    display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;
+  }
+  .field{display:flex;flex-direction:column;gap:5px;}
+  .field label{
+    font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .field.grow{flex:1 1 220px;min-width:180px;}
+  input[type=text],input[type=search]{
+    font-family:'Spectral',serif;font-size:15px;color:var(--text);
+    background:var(--paper-2);
+    border:1px solid var(--paper-line);border-radius:2px;
+    padding:9px 11px;width:100%;
+  }
+  .purse-wrap{position:relative;}
+  .purse-wrap input{padding-right:34px;width:130px;}
+  .purse-wrap .coin{
+    position:absolute;right:11px;top:50%;transform:translateY(-50%);
+    font-family:'Cinzel',serif;font-size:11px;color:var(--muted);letter-spacing:.1em;
+  }
+  input:focus-visible{outline:2px solid var(--brass);outline-offset:1px;}
+
+  .chips{max-width:1120px;margin:0 auto;padding:10px 20px 2px;
+    display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:'Cinzel',serif;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;
+    background:transparent;color:var(--muted);
+    border:1px solid var(--paper-line);border-radius:2px;
+    padding:6px 11px;cursor:pointer;transition:all .12s ease;
+  }
+  .chip:hover{color:var(--text);border-color:var(--brass-lo);}
+  .chip[aria-pressed=true]{
+    background:var(--ink);color:var(--paper);border-color:var(--ink);
+  }
+
+  /* ---------- Layout ---------- */
+  .wrap{
+    max-width:1120px;margin:0 auto;padding:14px 20px 120px;
+    display:grid;grid-template-columns:1fr 336px;gap:26px;align-items:start;
+  }
+
+  /* ---------- Catalog ---------- */
+  .cat{margin:0 0 26px;}
+  .cat-head{
+    display:flex;align-items:baseline;gap:12px;
+    border-bottom:2px solid var(--text);padding-bottom:5px;margin-bottom:2px;
+  }
+  .cat-head h2{
+    font-family:'Cinzel',serif;font-weight:700;font-size:18px;
+    letter-spacing:.1em;text-transform:uppercase;margin:0;color:var(--text);
+  }
+  .cat-head .count{font-size:12px;color:var(--muted);font-style:italic;}
+  .sub{
+    font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--wax);
+    margin:16px 0 4px;padding-left:2px;
+  }
+
+  .row{
+    display:grid;
+    grid-template-columns:1fr auto auto;
+    align-items:center;gap:14px;
+    padding:9px 4px 9px 10px;
+    border-bottom:1px solid var(--paper-line);
+    border-left:3px solid transparent;
+    transition:background .12s ease,border-color .12s ease;
+  }
+  .row:hover{background:rgba(169,134,63,.08);}
+  .row.active{border-left-color:var(--brass);background:rgba(169,134,63,.12);}
+  .item-name{font-size:16px;font-weight:500;color:var(--text);}
+  .item-meta{font-size:12px;color:var(--muted);margin-top:1px;}
+  .price{
+    text-align:right;white-space:nowrap;font-weight:500;font-size:15px;min-width:66px;
+  }
+  .price .u{font-family:'Cinzel',serif;font-size:10px;color:var(--muted);
+    letter-spacing:.06em;margin-left:2px;}
+
+  /* stepper */
+  .stepper{display:flex;align-items:center;gap:2px;}
+  .stepper button{
+    width:28px;height:28px;line-height:1;
+    font-family:'Cinzel',serif;font-size:16px;font-weight:600;
+    background:var(--paper-2);color:var(--text);
+    border:1px solid var(--paper-line);border-radius:2px;cursor:pointer;
+    transition:all .1s ease;
+  }
+  .stepper button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .stepper button:focus-visible{outline:2px solid var(--brass);outline-offset:1px;}
+  .qty{
+    width:34px;text-align:center;font-size:15px;font-weight:600;
+    font-variant-numeric:tabular-nums;color:var(--text);
+  }
+  .qty.zero{color:#b3a583;}
+
+  .empty-search{padding:40px 10px;color:var(--muted);font-style:italic;text-align:center;}
+
+  /* ---------- Order ledger (Ebbe's side) ---------- */
+  .ledger{
+    position:sticky;top:16px;
+    background:var(--ink);color:var(--paper);
+    border:1px solid #000;border-top:3px solid var(--brass-lo);
+    border-radius:3px;
+    box-shadow:0 10px 30px rgba(0,0,0,.28);
+    overflow:hidden;
+  }
+  .ledger-head{
+    padding:15px 16px 12px;border-bottom:1px solid #33475a;
+  }
+  .ledger-head h2{
+    font-family:'Cinzel',serif;font-weight:600;font-size:15px;
+    letter-spacing:.16em;text-transform:uppercase;margin:0;color:#efe7d2;
+  }
+  .ledger-head p{margin:3px 0 0;font-size:12px;font-style:italic;color:var(--iron);}
+  .buyer{margin:11px 16px 4px;}
+  .buyer label{
+    display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--iron);margin-bottom:4px;
+  }
+  .buyer input{
+    background:var(--ink-2);border:1px solid #33475a;color:var(--paper);
+    font-family:'Spectral',serif;font-size:14px;padding:7px 9px;width:100%;border-radius:2px;
+  }
+  .buyer input::placeholder{color:var(--iron-dim);}
+
+  .lines{
+    list-style:none;margin:8px 0;padding:0 16px;
+    max-height:min(38vh,360px);overflow-y:auto;
+  }
+  .lines li{
+    display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:baseline;
+    padding:6px 0;border-bottom:1px dotted #33475a;font-size:14px;
+  }
+  .lines li .ln-qty{color:var(--brass);font-weight:600;}
+  .lines li .ln-name{color:#ded3b8;}
+  .lines li .ln-cost{color:var(--paper);white-space:nowrap;font-weight:500;}
+  .lines .none{
+    display:block;grid-template-columns:none;border:0;text-align:center;
+    color:var(--iron-dim);font-style:italic;padding:14px 0;
+  }
+
+  .totals{padding:12px 16px 6px;border-top:1px solid #33475a;font-size:14px;}
+  .totals .line{display:flex;justify-content:space-between;padding:3px 0;color:var(--iron);}
+  .totals .line.big{
+    color:#efe7d2;font-size:16px;padding-top:8px;
+  }
+  .totals .line.big .amt{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.03em;}
+  .totals .line .amt{white-space:nowrap;font-weight:500;color:var(--paper);}
+  .totals .rest .amt{color:var(--good);}
+  .totals .rest.over .amt{color:#e06a5c;}
+  .totals .rest.over .lbl::after{content:" — over Ebbes kredit";font-style:italic;font-size:11px;color:#e06a5c;}
+
+  .actions{padding:8px 16px 16px;display:flex;flex-direction:column;gap:8px;}
+  .btn{
+    font-family:'Cinzel',serif;letter-spacing:.1em;text-transform:uppercase;
+    font-size:12px;font-weight:600;
+    border:0;border-radius:2px;padding:12px 14px;cursor:pointer;transition:all .12s ease;
+  }
+  .btn-primary{background:var(--wax);color:#f3e7d5;box-shadow:inset 0 -2px 0 var(--wax-deep);}
+  .btn-primary:hover{background:#9c3329;}
+  .btn-primary:disabled{background:#42505d;color:var(--iron-dim);box-shadow:none;cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--iron);border:1px solid #33475a;}
+  .btn-ghost:hover{color:var(--paper);border-color:var(--iron);}
+  .btn:focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
+  .hint{padding:0 16px 14px;font-size:12px;font-style:italic;color:var(--iron-dim);text-align:center;}
+
+  /* mobile summary bar */
+  .mobar{display:none;}
+
+  /* ---------- Receipt modal ---------- */
+  .scrim{
+    position:fixed;inset:0;background:rgba(10,15,20,.72);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:24px 16px;overflow-y:auto;z-index:50;
+  }
+  .scrim.open{display:flex;}
+  .receipt{
+    background:var(--paper-2);color:var(--text);
+    width:100%;max-width:430px;border-radius:3px;
+    border:1px solid var(--paper-line);
+    box-shadow:0 24px 60px rgba(0,0,0,.5);
+    position:relative;
+    background-image:repeating-linear-gradient(var(--paper-2) 0 27px,rgba(202,189,156,.28) 27px 28px);
+  }
+  .receipt-inner{padding:26px 26px 20px;}
+  .r-crest{text-align:center;margin-bottom:6px;}
+  .r-crest svg{width:30px;height:30px;}
+  .r-crest svg path,.r-crest svg line{stroke:var(--wax);}
+  .receipt h3{
+    font-family:'Cinzel',serif;font-weight:700;text-align:center;
+    letter-spacing:.1em;text-transform:uppercase;font-size:17px;margin:0;color:var(--text);
+  }
+  .receipt .r-sub{text-align:center;font-style:italic;color:var(--muted);font-size:12px;margin:3px 0 14px;}
+  .r-buyer{font-size:14px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--paper-line);}
+  .r-buyer b{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+  .r-lines{list-style:none;margin:0 0 12px;padding:0;font-size:14px;}
+  .r-lines li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;padding:4px 0;}
+  .r-lines .lq{color:var(--wax);font-weight:600;}
+  .r-lines .lc{white-space:nowrap;font-weight:500;}
+  .r-tot{border-top:2px solid var(--text);padding-top:9px;font-size:14px;}
+  .r-tot .l{display:flex;justify-content:space-between;padding:2px 0;color:var(--muted);}
+  .r-tot .l.big{color:var(--text);font-size:16px;}
+  .r-tot .l.big .a{font-family:'Cinzel',serif;font-weight:700;}
+  .r-note{font-size:11px;font-style:italic;color:var(--muted);text-align:center;margin:14px 0 0;}
+  .r-actions{display:flex;gap:8px;padding:0 26px 24px;}
+  .r-actions .btn{flex:1;}
+  .r-actions .btn-primary{color:#f3e7d5;}
+  .r-actions .btn-copy{background:var(--ink);color:var(--paper);box-shadow:inset 0 -2px 0 #000;}
+  .r-actions .btn-copy:hover{background:var(--ink-3);}
+
+  /* wax seal signature */
+  .seal{
+    position:absolute;right:18px;bottom:96px;width:96px;height:96px;
+    transform:rotate(-8deg) scale(.4);opacity:0;pointer-events:none;
+  }
+  .seal.stamped{
+    animation:stamp .45s cubic-bezier(.2,1.3,.5,1) forwards;
+  }
+  @keyframes stamp{
+    0%{transform:rotate(-8deg) scale(1.5);opacity:0;}
+    55%{opacity:.96;}
+    100%{transform:rotate(-8deg) scale(1);opacity:.94;}
+  }
+  .seal text{fill:#f0dfc9;}
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--paper);font-size:13px;
+    padding:11px 18px;border-radius:2px;border:1px solid var(--brass-lo);
+    opacity:0;transition:all .2s ease;z-index:60;pointer-events:none;
+    font-style:italic;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    .wrap{grid-template-columns:1fr;padding-bottom:96px;}
+    .ledger{
+      position:fixed;left:0;right:0;bottom:0;top:auto;
+      border-radius:14px 14px 0 0;border-top:3px solid var(--brass-lo);
+      transform:translateY(100%);transition:transform .28s ease;
+      max-height:86vh;overflow-y:auto;z-index:40;
+    }
+    .ledger.open{transform:translateY(0);}
+    .ledger .close-sheet{display:block;}
+    .mobar{
+      display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;
+      background:var(--ink);color:var(--paper);border-top:3px solid var(--brass-lo);
+      padding:12px 16px;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .mobar .mo-total{display:flex;flex-direction:column;}
+    .mobar .mo-total span:first-child{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--iron);font-family:'Cinzel',serif;}
+    .mobar .mo-total span:last-child{font-family:'Cinzel',serif;font-weight:700;font-size:18px;}
+    .mobar .btn{padding:11px 18px;}
+    .close-sheet{
+      display:block;position:absolute;top:12px;right:14px;
+      background:transparent;border:0;color:var(--iron);font-size:22px;cursor:pointer;line-height:1;
+    }
+  }
+  @media (min-width:861px){.close-sheet{display:none;}}
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms!important;transition-duration:.01ms!important;}
+    .seal.stamped{opacity:.94;transform:rotate(-8deg) scale(1);}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+    <path d="M20 3 L33 13 L20 24 L7 13 Z" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M7 13 L20 37 L33 13" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="13.5" y1="8.5" x2="20" y2="24" stroke-width="1"/>
+    <line x1="26.5" y1="8.5" x2="20" y2="24" stroke-width="1"/>
+  </svg>
+  <h1 class="shopname">Steins Stoltheder</h1>
+  <p class="tagline">Handelshus · Tårnfod</p>
+  <p class="subline">Varekatalog til Ebbes lave sats — vælg, tæl og afgiv jeres bestilling.</p>
+</header>
+
+<div class="toolbar">
+  <div class="field grow">
+    <label for="search">Søg i varer</label>
+    <input type="search" id="search" placeholder="fx sword, lantern, potion…" autocomplete="off">
+  </div>
+  <div class="field">
+    <label for="purse">Pung / findeløn</label>
+    <div class="purse-wrap">
+      <input type="text" id="purse" inputmode="decimal" placeholder="0" autocomplete="off">
+      <span class="coin">gp</span>
+    </div>
+  </div>
+</div>
+<div class="chips" id="chips" role="group" aria-label="Filtrér efter varegruppe"></div>
+
+<main class="wrap">
+  <section id="catalog" aria-label="Varekatalog"></section>
+
+  <aside class="ledger" id="ledger" aria-label="Bestillingsseddel">
+    <button class="close-sheet" id="closeSheet" aria-label="Luk seddel">✕</button>
+    <div class="ledger-head">
+      <h2>Bestillingsseddel</h2>
+      <p>Ebbes tally — hvad I skylder ved kassen.</p>
+    </div>
+    <div class="buyer">
+      <label for="buyer">Bestilt af</label>
+      <input type="text" id="buyer" placeholder="fx Ansgar & følge" autocomplete="off">
+    </div>
+    <ul class="lines" id="lines"><li class="none">Seddelen er tom endnu.</li></ul>
+    <div class="totals" id="totals">
+      <div class="line"><span>Varer</span><span class="amt" id="tCount">0</span></div>
+      <div class="line"><span>Vægt</span><span class="amt" id="tWeight">— lb</span></div>
+      <div class="line big"><span>I alt</span><span class="amt" id="tTotal">0 cp</span></div>
+      <div class="line rest" id="restLine" hidden><span class="lbl">Rest af pung</span><span class="amt" id="tRest">—</span></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" id="placeBtn" disabled>Afgiv bestilling</button>
+      <button class="btn btn-ghost" id="clearBtn">Ryd seddel</button>
+    </div>
+    <p class="hint">Priserne er husets lave sats. Ebbe skriver kvittering — så I kan trække handlen fra jeres findeløn.</p>
+  </aside>
+</main>
+
+<!-- mobile bottom bar -->
+<div class="mobar" id="mobar">
+  <div class="mo-total"><span>I alt</span><span id="moTotal">0 cp</span></div>
+  <button class="btn btn-primary" id="openSheet">Se seddel (<span id="moCount">0</span>)</button>
+</div>
+
+<!-- receipt -->
+<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="rTitle">
+  <div class="receipt">
+    <div class="receipt-inner">
+      <div class="r-crest">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M20 3 L33 13 L20 24 L7 13 Z" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M7 13 L20 37 L33 13" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 id="rTitle">Steins Stoltheder</h3>
+      <p class="r-sub">Kvittering · Tårnfod</p>
+      <div class="r-buyer"><b>Bestilt af:</b> <span id="rBuyer">—</span></div>
+      <ul class="r-lines" id="rLines"></ul>
+      <div class="r-tot">
+        <div class="l"><span>Varer i alt</span><span class="a" id="rCount">0</span></div>
+        <div class="l"><span>Samlet vægt</span><span class="a" id="rWeight">— lb</span></div>
+        <div class="l big"><span>At betale</span><span class="a" id="rTotal">0 cp</span></div>
+        <div class="l" id="rRestRow" hidden><span id="rRestLbl">Rest af pung</span><span class="a" id="rRest">—</span></div>
+      </div>
+      <p class="r-note">Priser efter husets lave sats · alt salg noteres i Ebbes bog</p>
+    </div>
+    <svg class="seal" id="seal" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <path id="sealArc" d="M50,50 m-33,0 a33,33 0 1,1 66,0 a33,33 0 1,1 -66,0"/>
+      </defs>
+      <circle cx="50" cy="50" r="44" fill="var(--wax)"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="var(--wax-deep)" stroke-width="3"/>
+      <circle cx="50" cy="50" r="35" fill="none" stroke="#c98b7f" stroke-width="1" opacity=".55"/>
+      <text font-family="Cinzel,serif" font-size="8.5" font-weight="700" letter-spacing="2.4">
+        <textPath href="#sealArc" startOffset="4%">STEINS · STOLTHEDER · TÅRNFOD ·</textPath>
+      </text>
+      <path d="M50 33 L62 43 L50 53 L38 43 Z" fill="none" stroke="#e9c9bf" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M38 43 L50 66 L62 43" fill="none" stroke="#e9c9bf" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+    <div class="r-actions">
+      <button class="btn btn-copy" id="copyBtn">Kopiér som tekst</button>
+      <button class="btn btn-primary" id="doneBtn">Luk</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- Data (priser = COST LOW, i kobber) ---------------- */
+// 1 gp = 100 cp, 1 sp = 10 cp
+const GP=100, SP=10;
+const ITEMS=[
+  // ---- Rustning ----
+  {n:"Leather (læder)",           c:"Rustning", s:"Let rustning",        cp:8*GP,   w:10, t:"AC 11 + Dex"},
+  {n:"Studded Leather",           c:"Rustning", s:"Let rustning",        cp:36*GP,  w:13, t:"AC 12 + Dex"},
+  {n:"Hide",                      c:"Rustning", s:"Mellemtung rustning", cp:8*GP,   w:12, t:"AC 12 + Dex (maks 2)"},
+  {n:"Chain Shirt",               c:"Rustning", s:"Mellemtung rustning", cp:40*GP,  w:20, t:"AC 13 + Dex (maks 2)"},
+  {n:"Scale Mail",                c:"Rustning", s:"Mellemtung rustning", cp:40*GP,  w:45, t:"AC 14 + Dex (maks 2)"},
+  {n:"Breastplate",               c:"Rustning", s:"Mellemtung rustning", cp:320*GP, w:20, t:"AC 14 + Dex (maks 2)"},
+  {n:"Half Plate",                c:"Rustning", s:"Mellemtung rustning", cp:600*GP, w:40, t:"AC 15 + Dex (maks 2)"},
+  {n:"Ring Mail",                 c:"Rustning", s:"Tung rustning",       cp:24*GP,  w:40, t:"AC 14"},
+  {n:"Chain Mail",                c:"Rustning", s:"Tung rustning",       cp:60*GP,  w:55, t:"AC 16 · Str 13"},
+  {n:"Splint",                    c:"Rustning", s:"Tung rustning",       cp:160*GP, w:60, t:"AC 17 · Str 15"},
+  {n:"Plate",                     c:"Rustning", s:"Tung rustning",       cp:1200*GP,w:65, t:"AC 18 · Str 15"},
+  {n:"Shield (skjold)",           c:"Rustning", s:"Skjold",              cp:8*GP,   w:6,  t:"+2 AC"},
+
+  // ---- Våben ----
+  {n:"Dagger",        c:"Våben", s:"Simple nærkampsvåben",  cp:2*GP,   w:1, t:"1d4 stik · finesse, let, kast"},
+  {n:"Handaxe",       c:"Våben", s:"Simple nærkampsvåben",  cp:4*GP,   w:2, t:"1d6 hug · let, kast"},
+  {n:"Javelin",       c:"Våben", s:"Simple nærkampsvåben",  cp:4*SP,   w:2, t:"1d6 stik · kast"},
+  {n:"Light Hammer",  c:"Våben", s:"Simple nærkampsvåben",  cp:2*GP,   w:2, t:"1d4 slag · let, kast"},
+  {n:"Mace",          c:"Våben", s:"Simple nærkampsvåben",  cp:4*GP,   w:4, t:"1d6 slag"},
+  {n:"Sickle",        c:"Våben", s:"Simple nærkampsvåben",  cp:8*SP,   w:2, t:"1d4 hug · let"},
+  {n:"Spear",         c:"Våben", s:"Simple nærkampsvåben",  cp:8*SP,   w:3, t:"1d6 stik · alsidig, kast"},
+  {n:"Sling",         c:"Våben", s:"Simpelt afstandsvåben", cp:8,      w:0, t:"1d4 slag · 30/120"},
+  {n:"Battleaxe",     c:"Våben", s:"Martiale nærkampsvåben",cp:8*GP,   w:4, t:"1d8 hug · alsidig"},
+  {n:"Flail",         c:"Våben", s:"Martiale nærkampsvåben",cp:8*GP,   w:2, t:"1d8 slag"},
+  {n:"Glaive",        c:"Våben", s:"Martiale nærkampsvåben",cp:16*GP,  w:6, t:"1d10 hug · rækkevidde, tung"},
+  {n:"Greataxe",      c:"Våben", s:"Martiale nærkampsvåben",cp:24*GP,  w:7, t:"1d12 hug · tung, tohånds"},
+  {n:"Greatsword",    c:"Våben", s:"Martiale nærkampsvåben",cp:40*GP,  w:6, t:"2d6 hug · tung, tohånds"},
+  {n:"Halberd",       c:"Våben", s:"Martiale nærkampsvåben",cp:16*GP,  w:6, t:"1d10 hug · rækkevidde, tung"},
+  {n:"Lance",         c:"Våben", s:"Martiale nærkampsvåben",cp:8*GP,   w:6, t:"1d12 stik · rækkevidde"},
+  {n:"Longsword",     c:"Våben", s:"Martiale nærkampsvåben",cp:12*GP,  w:3, t:"1d8 hug · alsidig"},
+  {n:"Maul",          c:"Våben", s:"Martiale nærkampsvåben",cp:8*GP,   w:10,t:"2d6 slag · tung, tohånds"},
+  {n:"Morningstar",   c:"Våben", s:"Martiale nærkampsvåben",cp:12*GP,  w:4, t:"1d8 stik"},
+  {n:"Pike",          c:"Våben", s:"Martiale nærkampsvåben",cp:4*GP,   w:18,t:"1d10 stik · rækkevidde, tung"},
+  {n:"Rapier",        c:"Våben", s:"Martiale nærkampsvåben",cp:20*GP,  w:2, t:"1d8 stik · finesse"},
+  {n:"Scimitar",      c:"Våben", s:"Martiale nærkampsvåben",cp:20*GP,  w:3, t:"1d6 hug · finesse, let"},
+  {n:"Shortsword",    c:"Våben", s:"Martiale nærkampsvåben",cp:8*GP,   w:2, t:"1d6 stik · finesse, let"},
+  {n:"Trident",       c:"Våben", s:"Martiale nærkampsvåben",cp:4*GP,   w:4, t:"1d6 stik · alsidig, kast"},
+  {n:"War Pick",      c:"Våben", s:"Martiale nærkampsvåben",cp:4*GP,   w:2, t:"1d8 stik"},
+  {n:"Warhammer",     c:"Våben", s:"Martiale nærkampsvåben",cp:12*GP,  w:2, t:"1d8 slag · alsidig"},
+  {n:"Canesword",     c:"Våben", s:"Martiale nærkampsvåben",cp:40*GP,  w:4, t:"skjult klinge i stok"},
+
+  // ---- Eventyrudstyr ----
+  {n:"Waterskin (full)",            c:"Eventyrudstyr", cp:2*SP,  w:5},
+  {n:"Ball Bearings (bag of 1,000)",c:"Eventyrudstyr", cp:8*SP,  w:2},
+  {n:"Bell",                        c:"Eventyrudstyr", cp:8*SP,  w:0},
+  {n:"Block and Tackle",            c:"Eventyrudstyr", cp:8*SP,  w:5},
+  {n:"Chain (10 feet)",             c:"Eventyrudstyr", cp:4*GP,  w:10},
+  {n:"Crowbar (koben)",             c:"Eventyrudstyr", cp:2*GP,  w:5},
+  {n:"Grappling Hook",              c:"Eventyrudstyr", cp:2*GP,  w:4},
+  {n:"Hammer",                      c:"Eventyrudstyr", cp:8*SP,  w:3},
+  {n:"Hammer, Sledge",              c:"Eventyrudstyr", cp:2*GP,  w:10},
+  {n:"Hunting Trap",                c:"Eventyrudstyr", cp:4*GP,  w:25},
+  {n:"Lamp",                        c:"Eventyrudstyr", cp:4*SP,  w:1},
+  {n:"Lantern, Bullseye",           c:"Eventyrudstyr", cp:8*GP,  w:2},
+  {n:"Lantern, Hooded",             c:"Eventyrudstyr", cp:4*GP,  w:2},
+  {n:"Lock",                        c:"Eventyrudstyr", cp:8*GP,  w:1},
+  {n:"Manacles",                    c:"Eventyrudstyr", cp:2*GP,  w:6},
+  {n:"Mirror, Steel",               c:"Eventyrudstyr", cp:4*GP,  w:0.5},
+  {n:"Pick, Miner's",               c:"Eventyrudstyr", cp:2*GP,  w:10},
+  {n:"Piton",                       c:"Eventyrudstyr", cp:4,     w:0.25},
+  {n:"Pot, Iron",                   c:"Eventyrudstyr", cp:2*GP,  w:10},
+  {n:"Spikes, Iron (10)",           c:"Eventyrudstyr", cp:8*SP,  w:5},
+  {n:"Whetstone",                   c:"Eventyrudstyr", cp:1,     w:1},
+  {n:"Acid (vial)",                 c:"Eventyrudstyr", cp:20*GP, w:1},
+  {n:"Aniseed, vial",               c:"Eventyrudstyr", cp:2*SP,  w:1},
+  {n:"Antitoxin (vial)",            c:"Eventyrudstyr", cp:40*GP, w:0},
+  {n:"Black Suit",                  c:"Eventyrudstyr", cp:24*GP, w:1},
+  {n:"Blinding Powder",             c:"Eventyrudstyr", cp:8,     w:1},
+  {n:"Caltrops (bag of 20)",        c:"Eventyrudstyr", cp:8*SP,  w:2},
+  {n:"Clothes, Costume",            c:"Eventyrudstyr", cp:4*GP,  w:4},
+  {n:"Dog Pepper",                  c:"Eventyrudstyr", cp:8,     w:1},
+  {n:"Finger Blades",               c:"Eventyrudstyr", cp:16*GP, w:0},
+  {n:"Glass-cutter",                c:"Eventyrudstyr", cp:96*GP, w:1},
+  {n:"Listening Cone",              c:"Eventyrudstyr", cp:16*GP, w:1},
+  {n:"Oil (flask)",                 c:"Eventyrudstyr", cp:8,     w:1},
+  {n:"Pin Ring (iron)",             c:"Eventyrudstyr", cp:2*GP,  w:0},
+  {n:"Pin Ring (silver)",           c:"Eventyrudstyr", cp:8*GP,  w:0},
+  {n:"Ram, Portable",               c:"Eventyrudstyr", cp:3*GP,  w:35},
+  {n:"Smoke Stick",                 c:"Eventyrudstyr", cp:16*GP, w:0.5},
+  {n:"Tar Paper",                   c:"Eventyrudstyr", cp:8,     w:1},
+  {n:"Wrist Sheath",                c:"Eventyrudstyr", cp:4*SP,  w:2},
+
+  // ---- Værktøj & sæt ----
+  {n:"Cobbler's Tools",       c:"Værktøj & sæt", s:"Håndværktøj",     cp:4*GP,  w:5},
+  {n:"Leatherworker's Tools", c:"Værktøj & sæt", s:"Håndværktøj",     cp:4*GP,  w:5},
+  {n:"Carpenter's Tools",     c:"Værktøj & sæt", s:"Håndværktøj",     cp:6*GP,  w:6},
+  {n:"Mason's Tools",         c:"Værktøj & sæt", s:"Håndværktøj",     cp:8*GP,  w:8},
+  {n:"Smith's Tools",         c:"Værktøj & sæt", s:"Håndværktøj",     cp:16*GP, w:8},
+  {n:"Bagpipes",              c:"Værktøj & sæt", s:"Musikinstrumenter",cp:24*GP, w:6},
+  {n:"Drum",                  c:"Værktøj & sæt", s:"Musikinstrumenter",cp:5*GP,  w:3},
+  {n:"Hand Drum",             c:"Værktøj & sæt", s:"Musikinstrumenter",cp:5*GP,  w:3},
+  {n:"Horn",                  c:"Værktøj & sæt", s:"Musikinstrumenter",cp:2*GP,  w:2},
+  {n:"Disguise Kit",          c:"Værktøj & sæt", s:"Sæt & kits",      cp:20*GP, w:3},
+  {n:"Forgery Kit",           c:"Værktøj & sæt", s:"Sæt & kits",      cp:12*GP, w:5},
+  {n:"Poisoner's Kit",        c:"Værktøj & sæt", s:"Sæt & kits",      cp:40*GP, w:2},
+  {n:"Thieves' Tools",        c:"Værktøj & sæt", s:"Sæt & kits",      cp:20*GP, w:1},
+  {n:"Dice Set",              c:"Værktøj & sæt", s:"Spilsæt",         cp:8,     w:0},
+  {n:"Playing Card Set",      c:"Værktøj & sæt", s:"Spilsæt",         cp:4*SP,  w:0},
+
+  // ---- Gift ----
+  {n:"Poison, Basic (vial)",  c:"Gift", cp:80*GP,   w:0},
+  {n:"Assassin's Blood",      c:"Gift", cp:120*GP,  w:0},
+  {n:"Burnt Othur Fumes",     c:"Gift", cp:400*GP,  w:0},
+  {n:"Crawler Mucus",         c:"Gift", cp:160*GP,  w:0},
+  {n:"Drow Poison",           c:"Gift", cp:160*GP,  w:0},
+  {n:"Essence of Ether",      c:"Gift", cp:240*GP,  w:0},
+  {n:"Malice",                c:"Gift", cp:200*GP,  w:0},
+  {n:"Midnight Tears",        c:"Gift", cp:1200*GP, w:0},
+  {n:"Oil of Taggit",         c:"Gift", cp:320*GP,  w:0},
+  {n:"Pale Tincture",         c:"Gift", cp:200*GP,  w:0},
+  {n:"Purple Worm Poison",    c:"Gift", cp:1600*GP, w:0},
+  {n:"Torpor",                c:"Gift", cp:480*GP,  w:0},
+  {n:"Truth Serum",           c:"Gift", cp:120*GP,  w:0},
+  {n:"Wyvern Poison",         c:"Gift", cp:960*GP,  w:0},
+
+  // ---- Eliksirer ----
+  {n:"Potion of Healing (2d4+2)", c:"Eliksirer", cp:40*GP,  w:0.5, t:"heler 2d4+2"},
+  {n:"Potion of Climbing",        c:"Eliksirer", cp:144*GP, w:0.5, t:"klatrefart, 1 time"},
+];
+
+const CATS=["Rustning","Våben","Eventyrudstyr","Værktøj & sæt","Gift","Eliksirer"];
+ITEMS.forEach((it,i)=>it.id=i);
+const qty={};            // id -> antal
+let activeCat="Alle";
+let search="";
+
+/* ---------------- Mønt-formatering ---------------- */
+function coin(cp){
+  cp=Math.round(cp);
+  if(cp<=0) return '<span>0</span><span class="u">cp</span>';
+  const gp=Math.floor(cp/100), r=cp%100, sp=Math.floor(r/10), c=r%10;
+  const parts=[];
+  if(gp) parts.push(`<span>${gp.toLocaleString('da-DK')}</span><span class="u">gp</span>`);
+  if(sp) parts.push(`<span>${sp}</span><span class="u">sp</span>`);
+  if(c)  parts.push(`<span>${c}</span><span class="u">cp</span>`);
+  return parts.join(' ');
+}
+function coinTxt(cp){
+  cp=Math.round(cp);
+  if(cp<=0) return "0 cp";
+  const gp=Math.floor(cp/100), r=cp%100, sp=Math.floor(r/10), c=r%10;
+  const p=[];
+  if(gp) p.push(gp.toLocaleString('da-DK')+" gp");
+  if(sp) p.push(sp+" sp");
+  if(c)  p.push(c+" cp");
+  return p.join(" ");
+}
+function wt(w){
+  if(!w) return "—";
+  if(w===0.5) return "½ lb";
+  if(w===0.25) return "¼ lb";
+  return (Number.isInteger(w)?w:w.toString().replace('.',','))+" lb";
+}
+function wtTotal(lb){
+  const r=Math.round(lb*100)/100;
+  return (Number.isInteger(r)?r:r.toFixed(2).replace(/0$/,'').replace('.',',')).toString()+" lb";
+}
+
+/* ---------------- Render katalog ---------------- */
+const catalogEl=document.getElementById('catalog');
+
+function buildChips(){
+  const box=document.getElementById('chips');
+  ["Alle",...CATS].forEach(c=>{
+    const b=document.createElement('button');
+    b.className='chip';b.textContent=c;b.setAttribute('aria-pressed',c==="Alle");
+    b.onclick=()=>{activeCat=c;[...box.children].forEach(x=>x.setAttribute('aria-pressed',x===b));renderCatalog();};
+    box.appendChild(b);
+  });
+}
+
+function renderCatalog(){
+  const q=search.trim().toLowerCase();
+  let html='';let shown=0;
+  CATS.forEach(cat=>{
+    if(activeCat!=="Alle" && activeCat!==cat) return;
+    let list=ITEMS.filter(it=>it.c===cat);
+    if(q) list=list.filter(it=>it.n.toLowerCase().includes(q)||(it.t||'').toLowerCase().includes(q));
+    if(!list.length) return;
+    shown+=list.length;
+    html+=`<section class="cat"><div class="cat-head"><h2>${cat}</h2><span class="count">${list.length} varer</span></div>`;
+    let curSub=null;
+    list.forEach(it=>{
+      if((it.s||'')!==curSub){curSub=it.s||'';if(curSub) html+=`<div class="sub">${curSub}</div>`;}
+      const n=qty[it.id]||0;
+      html+=`<div class="row ${n?'active':''}" data-id="${it.id}">
+        <div><div class="item-name">${it.n}</div><div class="item-meta">${it.t?it.t+' · ':''}${wt(it.w)}</div></div>
+        <div class="price">${coin(it.cp)}</div>
+        <div class="stepper">
+          <button data-act="dec" data-id="${it.id}" aria-label="Fjern én ${it.n}">−</button>
+          <span class="qty ${n?'':'zero'}" id="q${it.id}">${n}</span>
+          <button data-act="inc" data-id="${it.id}" aria-label="Tilføj én ${it.n}">+</button>
+        </div>
+      </div>`;
+    });
+    html+='</section>';
+  });
+  if(!shown) html=`<p class="empty-search">Ingen varer matcher “${search}”. Prøv et andet ord.</p>`;
+  catalogEl.innerHTML=html;
+}
+
+/* ---------------- Bestillingsseddel ---------------- */
+function totals(){
+  let cp=0,count=0,w=0;
+  ITEMS.forEach(it=>{const n=qty[it.id]||0;if(n){cp+=it.cp*n;count+=n;w+=it.w*n;}});
+  return{cp,count,w};
+}
+function purseCp(){
+  const raw=document.getElementById('purse').value.replace(/\./g,'').replace(',','.').trim();
+  const gp=parseFloat(raw);
+  return isFinite(gp)&&raw!==""?Math.round(gp*100):null;
+}
+
+function renderLedger(){
+  const {cp,count,w}=totals();
+  const lines=document.getElementById('lines');
+  const chosen=ITEMS.filter(it=>qty[it.id]);
+  if(chosen.length){
+    lines.innerHTML=chosen.map(it=>`<li>
+      <span class="ln-qty">${qty[it.id]}×</span>
+      <span class="ln-name">${it.n}</span>
+      <span class="ln-cost">${coinTxt(it.cp*qty[it.id])}</span></li>`).join('');
+  }else{
+    lines.innerHTML='<li class="none">Seddelen er tom endnu.</li>';
+  }
+  document.getElementById('tCount').textContent=count;
+  document.getElementById('tWeight').innerHTML=w?wtTotal(w):'— lb';
+  document.getElementById('tTotal').innerHTML=coin(cp);
+
+  const pc=purseCp();const restLine=document.getElementById('restLine');
+  if(pc!==null){
+    restLine.hidden=false;
+    const rest=pc-cp;
+    document.getElementById('tRest').innerHTML=rest<0?coin(-rest):coin(rest);
+    restLine.classList.toggle('over',rest<0);
+    restLine.querySelector('.lbl').textContent=rest<0?"Mangler":"Rest af pung";
+  }else restLine.hidden=true;
+
+  document.getElementById('placeBtn').disabled=count===0;
+  document.getElementById('moTotal').innerHTML=coin(cp);
+  document.getElementById('moCount').textContent=count;
+}
+
+function setQty(id,n){
+  n=Math.max(0,n);
+  if(n) qty[id]=n; else delete qty[id];
+  const el=document.getElementById('q'+id);
+  if(el){el.textContent=n;el.classList.toggle('zero',!n);
+    el.closest('.row').classList.toggle('active',!!n);}
+  renderLedger();
+}
+
+catalogEl.addEventListener('click',e=>{
+  const b=e.target.closest('button[data-act]');if(!b)return;
+  const id=+b.dataset.id;const cur=qty[id]||0;
+  setQty(id,b.dataset.act==='inc'?cur+1:cur-1);
+});
+
+document.getElementById('search').addEventListener('input',e=>{search=e.target.value;renderCatalog();});
+document.getElementById('purse').addEventListener('input',renderLedger);
+document.getElementById('clearBtn').addEventListener('click',()=>{
+  Object.keys(qty).forEach(k=>delete qty[k]);renderCatalog();renderLedger();
+});
+
+/* ---------------- Kvittering ---------------- */
+const scrim=document.getElementById('scrim');
+function openReceipt(){
+  const {cp,count,w}=totals();if(!count)return;
+  const buyer=document.getElementById('buyer').value.trim()||"—";
+  document.getElementById('rBuyer').textContent=buyer;
+  document.getElementById('rLines').innerHTML=ITEMS.filter(it=>qty[it.id]).map(it=>`
+    <li><span class="lq">${qty[it.id]}×</span><span>${it.n}</span>
+    <span class="lc">${coinTxt(it.cp*qty[it.id])}</span></li>`).join('');
+  document.getElementById('rCount').textContent=count;
+  document.getElementById('rWeight').textContent=w?wtTotal(w):'— lb';
+  document.getElementById('rTotal').innerHTML=coin(cp);
+  const pc=purseCp();const row=document.getElementById('rRestRow');
+  if(pc!==null){row.hidden=false;const rest=pc-cp;
+    document.getElementById('rRestLbl').textContent=rest<0?"Mangler":"Rest af pung";
+    document.getElementById('rRest').innerHTML=coin(Math.abs(rest));
+  }else row.hidden=true;
+  scrim.classList.add('open');
+  const seal=document.getElementById('seal');seal.classList.remove('stamped');
+  void seal.offsetWidth;setTimeout(()=>seal.classList.add('stamped'),120);
+}
+function closeReceipt(){scrim.classList.remove('open');}
+document.getElementById('placeBtn').addEventListener('click',openReceipt);
+document.getElementById('doneBtn').addEventListener('click',closeReceipt);
+scrim.addEventListener('click',e=>{if(e.target===scrim)closeReceipt();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReceipt();});
+
+function receiptText(){
+  const {cp,count,w}=totals();
+  const buyer=document.getElementById('buyer').value.trim()||"—";
+  let s="STEINS STOLTHEDER — Tårnfod\nBestillingsseddel (husets lave sats)\n";
+  s+="Bestilt af: "+buyer+"\n";
+  s+="--------------------------------\n";
+  ITEMS.filter(it=>qty[it.id]).forEach(it=>{
+    s+=`${qty[it.id]}x ${it.n}  —  ${coinTxt(it.cp*qty[it.id])}\n`;});
+  s+="--------------------------------\n";
+  s+=`Varer i alt: ${count}\n`;
+  s+=`Samlet vægt: ${w?wtTotal(w):'0 lb'}\n`;
+  s+=`AT BETALE: ${coinTxt(cp)}\n`;
+  const pc=purseCp();
+  if(pc!==null){const rest=pc-cp;
+    s+=`Pung: ${coinTxt(pc)} | ${rest<0?'Mangler':'Rest'}: ${coinTxt(Math.abs(rest))}\n`;}
+  return s;
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;
+  t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1900);}
+
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+  const txt=receiptText();
+  try{await navigator.clipboard.writeText(txt);toast("Seddel kopieret — klar til Notion eller Discord.");}
+  catch(_){
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);
+    ta.select();try{document.execCommand('copy');toast("Seddel kopieret.");}catch(e){toast("Kunne ikke kopiere — markér teksten manuelt.");}
+    document.body.removeChild(ta);
+  }
+});
+
+/* ---------------- Mobil-sheet ---------------- */
+const ledger=document.getElementById('ledger');
+document.getElementById('openSheet').addEventListener('click',()=>ledger.classList.add('open'));
+document.getElementById('closeSheet').addEventListener('click',()=>ledger.classList.remove('open'));
+
+/* ---------------- Init ---------------- */
+buildChips();renderCatalog();renderLedger();
+</script>
+</body>
+</html>
